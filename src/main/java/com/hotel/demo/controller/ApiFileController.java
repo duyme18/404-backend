@@ -27,9 +27,9 @@ public class ApiFileController {
     @Autowired
     Environment env;
 
-    @PostMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> uploadFile(@ModelAttribute FileForm fileForm, BindingResult result, @PathVariable Long id) {
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
