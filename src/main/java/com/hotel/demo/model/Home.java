@@ -10,8 +10,8 @@ public class Home {
     private Long id;
     private String name;
     private String address;
-    private String bedroomQuantity;
-    private String bathroomQuantity;
+    private int bedroomQuantity;
+    private int bathroomQuantity;
     private Double price;
     private String file;
     private String description;
@@ -25,7 +25,7 @@ public class Home {
     @JoinColumn(name = "status_home_id")
     private StatusHome statusHome;
 
-    public Home(String name, String address, String bedroomQuantity, String bathroomQuantity, Double price, String image, String description) {
+    public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String image, String description) {
         this.name = name;
         this.address = address;
         this.bedroomQuantity = bedroomQuantity;
@@ -59,19 +59,19 @@ public class Home {
         this.address = address;
     }
 
-    public String getBedroomQuantity() {
+    public int getBedroomQuantity() {
         return bedroomQuantity;
     }
 
-    public void setBedroomQuantity(String bedroomQuantity) {
+    public void setBedroomQuantity(int bedroomQuantity) {
         this.bedroomQuantity = bedroomQuantity;
     }
 
-    public String getBathroomQuantity() {
+    public int getBathroomQuantity() {
         return bathroomQuantity;
     }
 
-    public void setBathroomQuantity(String bathroomQuantity) {
+    public void setBathroomQuantity(int bathroomQuantity) {
         this.bathroomQuantity = bathroomQuantity;
     }
 
