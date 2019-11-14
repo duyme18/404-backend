@@ -1,5 +1,6 @@
 package com.hotel.demo.controller;
 
+import com.hotel.demo.message.response.ResponseMessage;
 import com.hotel.demo.model.FileForm;
 import com.hotel.demo.model.Home;
 import com.hotel.demo.service.HomeService;
@@ -28,7 +29,7 @@ public class ApiFileController {
     Environment env;
 
     @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> uploadFile(@ModelAttribute FileForm fileForm, BindingResult result, @PathVariable Long id) {
+    public ResponseEntity<?> uploadFile(@ModelAttribute FileForm fileForm, BindingResult result, @PathVariable Long id) {
         if (result.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -44,6 +45,9 @@ public class ApiFileController {
         }
 
         Optional<Home> home = homeService.findById(id);
+        if(!home.isPresent()){
+            return new ResponseEntity<>(new ResponseMessage("khong tim thay home"),HttpStatus.NOT_FOUND);
+        }
         home.get().setFile(fileName);
         homeService.save(home.get());
 

@@ -27,8 +27,6 @@ public class ApiHomeController {
         return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 
-    //-------------------Retrieve Single category--------------------------------------------------------
-
     @GetMapping("/{id}")
     public ResponseEntity<Home> getIdHome(@PathVariable Long id) {
         Optional<Home> home = homeService.findById(id);
@@ -40,11 +38,12 @@ public class ApiHomeController {
 
 
     @PostMapping
-    public ResponseEntity<Home> createCategoryRoom(@RequestBody Home home) {
-        Home home1 = home;
+    public ResponseEntity<Home> createHome(@RequestBody Home home) {
+
         homeService.save(home);
-        return new ResponseEntity<>(home1, HttpStatus.CREATED);
+        return new ResponseEntity<>(home, HttpStatus.CREATED);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Home> updateHome(@PathVariable Long id, @RequestBody Home home) {
         Optional<Home> currentHome = homeService.findById(id);
@@ -66,6 +65,7 @@ public class ApiHomeController {
         homeService.save(currentHome.get());
         return new ResponseEntity<>(currentHome.get(), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Home> deleteHome(@PathVariable Long id) {
         Optional<Home> home = homeService.findById(id);

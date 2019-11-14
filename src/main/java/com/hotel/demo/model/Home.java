@@ -25,13 +25,13 @@ public class Home {
     @JoinColumn(name = "status_home_id")
     private StatusHome statusHome;
 
-    public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String image, String description) {
+    public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String file, String description) {
         this.name = name;
         this.address = address;
         this.bedroomQuantity = bedroomQuantity;
         this.bathroomQuantity = bathroomQuantity;
         this.price = price;
-        this.file = image;
+        this.file = file;
         this.description = description;
     }
 
