@@ -21,4 +21,6 @@ public interface HomeService {
     Iterable<Home> findAllByCategoryRoom(CategoryRoom categoryRoom);
 
     Iterable<Home> findAllByStatusHome(StatusHome statusHome);
+
+    Iterable<Home> findHomeByAddressContaining(String address);
 }
