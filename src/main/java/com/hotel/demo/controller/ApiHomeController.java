@@ -1,5 +1,6 @@
 package com.hotel.demo.controller;
 
+import com.hotel.demo.message.request.SearchByAddress;
 import com.hotel.demo.model.Home;
 import com.hotel.demo.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,22 @@ public class ApiHomeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+    @PostMapping("/searchByAddress")
+    public ResponseEntity<?> searchHomeByAddress(@RequestBody SearchByAddress searchByAddress) {
+        List<Home> homes;
+        if (searchByAddress.getAddress() == "") {
+            homes = (List<Home>) homeService.findAll();
+            if (homes.isEmpty()) {
+                return new ResponseEntity<>(homes, HttpStatus.OK);
+
+            }
+            return new ResponseEntity<>(homes, HttpStatus.OK);
+
+        }
+        homes = (List<Home>) homeService.findHomeByAddressContaining(searchByAddress.getAddress());
+        return new ResponseEntity<>(homes, HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<Home> createHome(@RequestBody Home home) {
