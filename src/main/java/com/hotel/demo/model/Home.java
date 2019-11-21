@@ -1,8 +1,6 @@
 package com.hotel.demo.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "home")
@@ -26,7 +24,7 @@ public class Home {
     @ManyToOne
     @JoinColumn(name = "status_home_id")
     private StatusHome statusHome;
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "booking_home_id")
     private Booking booking;
 
