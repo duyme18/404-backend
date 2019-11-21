@@ -26,6 +26,7 @@ public class ApiCategoryRoomController {
 
         return new ResponseEntity<>(categoryRooms, HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<CategoryRoom> getIdCategoryRoom(@PathVariable Long id) {
         Optional<CategoryRoom> categoryHome = categoryRoomService.findById(id);
@@ -34,12 +35,14 @@ public class ApiCategoryRoomController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PostMapping
     public ResponseEntity<CategoryRoom> createCategoryRoom(@RequestBody CategoryRoom categoryRoom) {
         CategoryRoom categoryRoom1 = categoryRoom;
         categoryRoomService.save(categoryRoom);
         return new ResponseEntity<>(categoryRoom1, HttpStatus.CREATED);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<CategoryRoom> updateCategoryRoom(@PathVariable Long id, @RequestBody CategoryRoom categoryRoom) {
         Optional<CategoryRoom> currentCategoryRoom = categoryRoomService.findById(id);
@@ -51,6 +54,7 @@ public class ApiCategoryRoomController {
         categoryRoomService.save(currentCategoryRoom.get());
         return new ResponseEntity<>(currentCategoryRoom.get(), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<CategoryRoom> deleteCategoryRoom(@PathVariable Long id) {
         Optional<CategoryRoom> categoryHome = categoryRoomService.findById(id);

@@ -45,8 +45,8 @@ public class ApiFileController {
         }
 
         Optional<Home> home = homeService.findById(id);
-        if(!home.isPresent()){
-            return new ResponseEntity<>(new ResponseMessage("khong tim thay home"),HttpStatus.NOT_FOUND);
+        if (!home.isPresent()) {
+            return new ResponseEntity<>(new ResponseMessage("khong tim thay home"), HttpStatus.NOT_FOUND);
         }
         home.get().setFile(fileName);
         homeService.save(home.get());
