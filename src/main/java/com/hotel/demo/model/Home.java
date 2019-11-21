@@ -1,6 +1,8 @@
 package com.hotel.demo.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "home")
@@ -24,6 +26,9 @@ public class Home {
     @ManyToOne
     @JoinColumn(name = "status_home_id")
     private StatusHome statusHome;
+    @ManyToMany
+    @JoinColumn(name = "booking_home_id")
+    private Booking booking;
 
     public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String file, String description) {
         this.name = name;
@@ -121,6 +126,14 @@ public class Home {
 
     public void setStatusHome(StatusHome statusHome) {
         this.statusHome = statusHome;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     public Home() {

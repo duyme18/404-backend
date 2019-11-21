@@ -12,7 +12,7 @@ public class CategoryRoom {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-@JsonIgnore
+    @JsonIgnore
     @OneToMany(targetEntity = Home.class)
     private List<Home> homes;
 
