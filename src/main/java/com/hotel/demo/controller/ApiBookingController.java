@@ -16,27 +16,6 @@ public class ApiBookingController {
     @Autowired
     private BookingService bookingService;
 
-//    @GetMapping(value = "/findall", produces = {MimeTypeUtils.APPLICATION_JSON_VALUE})
-//    public ResponseEntity<Iterable<Booking>> findAll() {
-//        try {
-//            return new ResponseEntity<>(bookingService.findAll(), HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//    @PostMapping(value = "/create", produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
-//            consumes = {MimeTypeUtils.APPLICATION_JSON_VALUE})
-//    public ResponseEntity<Booking> create(@RequestBody Booking booking) {
-//        try {
-//            return new ResponseEntity<>(bookingService.save(booking), HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
     @GetMapping
     public ResponseEntity<List<Booking>> findAllBooking() {
         List<Booking> categoryHomes = (List<Booking>) bookingService.findAll();
@@ -57,7 +36,7 @@ public class ApiBookingController {
     }
 
     @PostMapping
-    public ResponseEntity<Booking> createBoard(@RequestBody Booking booking) {
+    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         Booking booking1 = booking;
         bookingService.save(booking);
         return new ResponseEntity<>(booking1, HttpStatus.CREATED);

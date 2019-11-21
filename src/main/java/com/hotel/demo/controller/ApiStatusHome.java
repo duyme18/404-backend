@@ -18,14 +18,15 @@ public class ApiStatusHome {
     private StatusHomeService statusHomeService;
 
     @GetMapping
-    public ResponseEntity<List<StatusHome>> findAllStatusHome(){
-        List<StatusHome> statuses =(List<StatusHome>) statusHomeService.findAll();
-        if(statuses.isEmpty()){
+    public ResponseEntity<List<StatusHome>> findAllStatusHome() {
+        List<StatusHome> statuses = (List<StatusHome>) statusHomeService.findAll();
+        if (statuses.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(statuses,HttpStatus.OK);
+        return new ResponseEntity<>(statuses, HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<StatusHome> getIdStatusHome(@PathVariable Long id) {
         Optional<StatusHome> statusHome = statusHomeService.findById(id);
@@ -34,12 +35,14 @@ public class ApiStatusHome {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PostMapping
     public ResponseEntity<StatusHome> createStatusHome(@RequestBody StatusHome statusHome) {
         StatusHome statusHome1 = statusHome;
         statusHomeService.save(statusHome);
         return new ResponseEntity<>(statusHome1, HttpStatus.CREATED);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<StatusHome> updateStatusHome(@PathVariable Long id, @RequestBody StatusHome statusHome) {
         Optional<StatusHome> currentStatusHome = statusHomeService.findById(id);
@@ -51,6 +54,7 @@ public class ApiStatusHome {
         statusHomeService.save(currentStatusHome.get());
         return new ResponseEntity<>(currentStatusHome.get(), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<StatusHome> deleteStatusHome(@PathVariable Long id) {
         Optional<StatusHome> statusHome = statusHomeService.findById(id);
