@@ -1,12 +1,10 @@
 package com.hotel.demo.controller;
 
 import com.hotel.demo.model.Booking;
-import com.hotel.demo.model.CategoryHome;
 import com.hotel.demo.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
