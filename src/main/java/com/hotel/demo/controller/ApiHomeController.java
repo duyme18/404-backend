@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @CrossOrigin
@@ -20,6 +21,7 @@ public class ApiHomeController {
     @GetMapping
     public ResponseEntity<List<Home>> findAllHome() {
         List<Home> homes = (List<Home>) homeService.findAll();
+
         if (homes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
