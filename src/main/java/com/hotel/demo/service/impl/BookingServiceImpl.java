@@ -33,4 +33,14 @@ public class BookingServiceImpl implements BookingService {
     public Booking save(Booking booking) {
         return bookingRepository.save(booking);
     }
+
+    @Override
+    public Iterable<Booking> findBookingsByUserId(Long user_id) {
+        return bookingRepository.findBookingsByUserId(user_id);
+    }
+
+    @Override
+    public Iterable<Booking> findBookingsById(Long id) {
+        return bookingRepository.findBookingsById(id);
+    }
 }

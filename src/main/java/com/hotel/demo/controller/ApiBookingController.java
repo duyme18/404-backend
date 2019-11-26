@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping("/api/auth/booking")
 public class ApiBookingController {
@@ -18,12 +19,12 @@ public class ApiBookingController {
 
     @GetMapping
     public ResponseEntity<List<Booking>> findAllBooking() {
-        List<Booking> categoryHomes = (List<Booking>) bookingService.findAll();
-        if (categoryHomes.isEmpty()) {
+        List<Booking> bookings = (List<Booking>) bookingService.findAll();
+        if (bookings.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(categoryHomes, HttpStatus.OK);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -51,6 +52,7 @@ public class ApiBookingController {
         currentBooking.get().setId(booking.getId());
         currentBooking.get().setCheckin(booking.getCheckin());
         currentBooking.get().setCheckout(booking.getCheckout());
+        currentBooking.get().setUser(booking.getUser());
         bookingService.save(currentBooking.get());
         return new ResponseEntity<>(currentBooking.get(), HttpStatus.OK);
     }

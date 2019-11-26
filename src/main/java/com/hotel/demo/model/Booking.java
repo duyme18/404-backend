@@ -19,7 +19,25 @@ public class Booking {
     @OneToMany(targetEntity = Home.class)
     private List<Home> homes;
 
+    @ManyToOne
+    private User user;
+
     public Booking() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Booking(String checkin, String checkout, List<Home> homes, User user) {
+        this.checkin = checkin;
+        this.checkout = checkout;
+        this.homes = homes;
+        this.user = user;
     }
 
     public Booking(String checkin, String checkout) {
