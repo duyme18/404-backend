@@ -48,6 +48,18 @@ public class User {
     @OneToMany(targetEntity = Booking.class, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
+    @JsonIgnore
+    @OneToMany(targetEntity = Comment.class)
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public List<Booking> getBookings() {
         return bookings;
     }

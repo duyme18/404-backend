@@ -1,6 +1,7 @@
 package com.hotel.demo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "home")
@@ -13,6 +14,7 @@ public class Home {
     private int bedroomQuantity;
     private int bathroomQuantity;
     private Double price;
+    @Column(columnDefinition = "LONGTEXT")
     private String file;
     private String description;
     private String latitude;
@@ -30,6 +32,16 @@ public class Home {
     @ManyToOne
     @JoinColumn(name = "booking_home_id")
     private Booking booking;
+    @OneToMany(targetEntity = Comment.class)
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String file, String description, String latitude, String longitude) {
         this.name = name;

@@ -11,7 +11,7 @@ public interface BookingService {
 
     void remove(Long id);
 
-    public Booking save(Booking booking);
+    Booking save(Booking booking);
 
     Iterable<Booking> findBookingsByUserId(Long user_id);
 
