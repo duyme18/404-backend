@@ -1,6 +1,9 @@
 package com.hotel.demo.controller;
 
+import com.hotel.demo.message.request.SearchByAddress;
+import com.hotel.demo.model.Comment;
 import com.hotel.demo.model.Home;
+import com.hotel.demo.service.CommentService;
 import com.hotel.demo.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,9 @@ import java.util.Optional;
 public class ApiHomeController {
     @Autowired
     private HomeService homeService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping
     public ResponseEntity<List<Home>> findAllHome() {
@@ -39,6 +45,22 @@ public class ApiHomeController {
     }
 
 
+    @PostMapping("/searchByAddress")
+    public ResponseEntity<?> searchHomeByAddress(@RequestBody SearchByAddress searchByAddress) {
+        List<Home> homes;
+        if (searchByAddress.getAddress() == "") {
+            homes = (List<Home>) homeService.findAll();
+            if (homes.isEmpty()) {
+                return new ResponseEntity<>(homes, HttpStatus.OK);
+
+            }
+            return new ResponseEntity<>(homes, HttpStatus.OK);
+
+        }
+        homes = (List<Home>) homeService.findHomeByAddressContaining(searchByAddress.getAddress());
+        return new ResponseEntity<>(homes, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Home> createHome(@RequestBody Home home) {
 
@@ -55,6 +77,8 @@ public class ApiHomeController {
         currentHome.get().setCategoryRoom(home.getCategoryRoom());
         currentHome.get().setCategoryHome(home.getCategoryHome());
         currentHome.get().setStatusHome(home.getStatusHome());
+        currentHome.get().setLatitude(home.getLatitude());
+        currentHome.get().setLongitude(home.getLongitude());
         currentHome.get().setDescription(home.getDescription());
         currentHome.get().setPrice(home.getPrice());
         currentHome.get().setFile(home.getFile());
@@ -69,11 +93,15 @@ public class ApiHomeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Home> deleteHome(@PathVariable Long id) {
+    public ResponseEntity<?> deleteHome(@PathVariable Long id) {
+        List<Comment> comments = (List<Comment>) commentService.findCommentByHomeId(id);
         Optional<Home> home = homeService.findById(id);
-        if (home.isPresent()) {
+        if (!comments.isEmpty() && home.isPresent()) {
+            for (Comment comment : comments) {
+                commentService.remove(comment.getId());
+            }
             homeService.remove(id);
-            return new ResponseEntity<>(home.get(), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,5 +1,6 @@
 package com.hotel.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -19,17 +21,17 @@ import java.util.Set;
                 "email"
         })
 })
-public class User{
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Size(min=3, max = 50)
+    @Size(min = 3, max = 50)
     private String name;
 
     @NotBlank
-    @Size(min=3, max = 50)
+    @Size(min = 3, max = 50)
     private String username;
 
     @NaturalId
@@ -39,8 +41,41 @@ public class User{
     private String email;
 
     @NotBlank
-    @Size(min=6, max = 100)
+    @Size(min = 6, max = 100)
     private String password;
+
+    @JsonIgnore
+    @OneToMany(targetEntity = Booking.class, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
+
+    @JsonIgnore
+    @OneToMany(targetEntity = Comment.class)
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public User(@NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(min = 6, max = 100) String password, List<Booking> bookings, Set<Role> roles) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.bookings = bookings;
+        this.roles = roles;
+    }
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -48,7 +83,8 @@ public class User{
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, String username, String email, String password) {
         this.name = name;

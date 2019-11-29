@@ -1,6 +1,7 @@
 package com.hotel.demo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "home")
@@ -13,8 +14,12 @@ public class Home {
     private int bedroomQuantity;
     private int bathroomQuantity;
     private Double price;
+    @Column(columnDefinition = "LONGTEXT")
     private String file;
     private String description;
+    private String latitude;
+    private String longitude;
+
     @ManyToOne
     @JoinColumn(name = "category_home_id")
     private CategoryHome categoryHome;
@@ -24,8 +29,21 @@ public class Home {
     @ManyToOne
     @JoinColumn(name = "status_home_id")
     private StatusHome statusHome;
+    @ManyToOne
+    @JoinColumn(name = "booking_home_id")
+    private Booking booking;
+    @OneToMany(targetEntity = Comment.class)
+    private List<Comment> comments;
 
-    public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String file, String description) {
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String file, String description, String latitude, String longitude) {
         this.name = name;
         this.address = address;
         this.bedroomQuantity = bedroomQuantity;
@@ -33,6 +51,8 @@ public class Home {
         this.price = price;
         this.file = file;
         this.description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Long getId() {
@@ -99,6 +119,22 @@ public class Home {
         this.description = description;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     public CategoryHome getCategoryHome() {
         return categoryHome;
     }
@@ -121,6 +157,14 @@ public class Home {
 
     public void setStatusHome(StatusHome statusHome) {
         this.statusHome = statusHome;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
     public Home() {

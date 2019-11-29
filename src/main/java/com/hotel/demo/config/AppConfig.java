@@ -1,17 +1,13 @@
 package com.hotel.demo.config;
 
 
-import com.hotel.demo.service.CategoryHomeService;
-import com.hotel.demo.service.CategoryRoomService;
-import com.hotel.demo.service.HomeService;
-import com.hotel.demo.service.StatusHomeService;
-import com.hotel.demo.service.impl.CategoryHomeServiceImpl;
-import com.hotel.demo.service.impl.CategoryRoomServiceImpl;
-import com.hotel.demo.service.impl.HomeServiceImpl;
-import com.hotel.demo.service.impl.StatusHomeServiceImpl;
+import com.hotel.demo.security.service.UserDetailsServiceImpl;
+import com.hotel.demo.security.service.UserPrinciple;
+import com.hotel.demo.service.*;
+import com.hotel.demo.service.impl.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -51,5 +47,19 @@ public class AppConfig implements WebMvcConfigurer {
         return new CategoryRoomServiceImpl();
     }
 
+    @Bean
+    public BookingService bookingService() {
+        return new BookingServiceImpl();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
+    @Bean
+    public CommentService commentService() {
+        return new CommentServiceImpl();
+    }
 }
 
