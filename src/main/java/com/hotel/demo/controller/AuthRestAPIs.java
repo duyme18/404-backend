@@ -1,6 +1,7 @@
 package com.hotel.demo.controller;
 
 import com.hotel.demo.message.request.LoginForm;
+import com.hotel.demo.message.request.PasswordForm;
 import com.hotel.demo.message.request.SignUpForm;
 import com.hotel.demo.message.response.JwtResponse;
 import com.hotel.demo.message.response.ResponseMessage;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -104,5 +106,26 @@ public class AuthRestAPIs {
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
     }
-
+    @PostMapping("/update-password/{id}")
+    public ResponseEntity<?> updatePassword(@PathVariable("id") Long id,
+                                            @Valid @RequestBody PasswordForm passwordForm)
+    {
+        Optional<User> user = userRepository.findById(id);
+        System.out.println(user);
+        if(!user.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        try{
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            passwordForm.getUsername(),
+                            passwordForm.getCurrentPassword())
+            );
+            user.get().setPassword(passwordEncoder.encode(passwordForm.getNewPassword()));
+            userRepository.save(user.get());
+            return new ResponseEntity<>(new ResponseMessage("Change password succesfully"),HttpStatus.OK);
+        }catch (Exception e) {
+            throw new RuntimeException("Fail");
+        }
+    }
 }

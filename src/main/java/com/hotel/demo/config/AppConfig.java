@@ -24,7 +24,7 @@ public class AppConfig implements WebMvcConfigurer {
 
         registry
                 .addResourceHandler("/uploads/**")
-                .addResourceLocations("file:/home/duyhd/Documents/project/project-404/photo/");
+                .addResourceLocations("file:C:/Users/MyPC/Desktop/New folder/");
     }
 
     @Bean
