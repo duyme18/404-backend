@@ -25,11 +25,7 @@ public class TestRestAPIs {
     @Autowired
     private BookingService bookingService;
 
-
     @GetMapping("/api/test/user")
-
-  public String userAccess()
-    {
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String userAccess() {
