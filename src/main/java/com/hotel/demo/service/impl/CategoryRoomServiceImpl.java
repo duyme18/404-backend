@@ -4,9 +4,11 @@ import com.hotel.demo.model.CategoryRoom;
 import com.hotel.demo.repository.CategoryRoomRepository;
 import com.hotel.demo.service.CategoryRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CategoryRoomServiceImpl implements CategoryRoomService {
     @Autowired
     private CategoryRoomRepository categoryRoomRepository;

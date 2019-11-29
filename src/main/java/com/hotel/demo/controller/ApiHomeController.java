@@ -103,6 +103,9 @@ public class ApiHomeController {
             homeService.remove(id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        if (home.isPresent()) {
+            homeService.remove(id);
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

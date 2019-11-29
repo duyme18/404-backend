@@ -5,7 +5,9 @@ import com.hotel.demo.model.CategoryRoom;
 import com.hotel.demo.model.Home;
 import com.hotel.demo.model.StatusHome;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface HomeRepository extends PagingAndSortingRepository<Home, Long> {
     Iterable<Home> findAllByCategoryHome(CategoryHome categoryHome);
 

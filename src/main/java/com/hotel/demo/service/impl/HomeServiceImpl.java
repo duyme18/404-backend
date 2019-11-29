@@ -7,9 +7,11 @@ import com.hotel.demo.model.StatusHome;
 import com.hotel.demo.repository.HomeRepository;
 import com.hotel.demo.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class HomeServiceImpl implements HomeService {
     @Autowired
     private HomeRepository homeRepository;

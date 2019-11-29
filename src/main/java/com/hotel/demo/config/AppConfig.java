@@ -27,39 +27,39 @@ public class AppConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:/home/duyhd/Documents/project/project-404/photo/");
     }
 
-    @Bean
-    public HomeService homeService() {
-        return new HomeServiceImpl();
-    }
-
-    @Bean
-    public StatusHomeService statusHomeService() {
-        return new StatusHomeServiceImpl();
-    }
-
-    @Bean
-    public CategoryHomeService categoryHomeService() {
-        return new CategoryHomeServiceImpl();
-    }
-
-    @Bean
-    public CategoryRoomService categoryRoomService() {
-        return new CategoryRoomServiceImpl();
-    }
-
-    @Bean
-    public BookingService bookingService() {
-        return new BookingServiceImpl();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
-    }
-
-    @Bean
-    public CommentService commentService() {
-        return new CommentServiceImpl();
-    }
+//    @Bean
+//    public HomeService homeService() {
+//        return new HomeServiceImpl();
+//    }
+//
+//    @Bean
+//    public StatusHomeService statusHomeService() {
+//        return new StatusHomeServiceImpl();
+//    }
+//
+//    @Bean
+//    public CategoryHomeService categoryHomeService() {
+//        return new CategoryHomeServiceImpl();
+//    }
+//
+//    @Bean
+//    public CategoryRoomService categoryRoomService() {
+//        return new CategoryRoomServiceImpl();
+//    }
+//
+//    @Bean
+//    public BookingService bookingService() {
+//        return new BookingServiceImpl();
+//    }
+//
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        return new UserDetailsServiceImpl();
+//    }
+//
+//    @Bean
+//    public CommentService commentService() {
+//        return new CommentServiceImpl();
+//    }
 }
 

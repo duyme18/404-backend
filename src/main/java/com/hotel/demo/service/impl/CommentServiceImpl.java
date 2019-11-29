@@ -4,9 +4,11 @@ import com.hotel.demo.model.Comment;
 import com.hotel.demo.repository.CommentRepository;
 import com.hotel.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
