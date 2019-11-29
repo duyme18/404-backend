@@ -25,7 +25,7 @@ public class ApiCommentController {
     public HomeService homeService;
 
     @GetMapping
-    public ResponseEntity<Comment> findAllComment() {
+    public ResponseEntity<?> findAllComment() {
         List<Comment> comments = (List<Comment>) commentService.findAll();
         if (comments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -34,10 +34,10 @@ public class ApiCommentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Comment> getIdComment(@PathVariable Long id) {
+    public ResponseEntity<?> getIdComment(@PathVariable Long id) {
         Optional<Comment> comment = commentService.findById(id);
         if (comment.isPresent()) {
-            return new ResponseEntity<>(comment.get(), HttpStatus.OK);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -46,7 +46,7 @@ public class ApiCommentController {
     public ResponseEntity<?> findCommentByHomeId(@PathVariable Long id) {
         List<Comment> comments = (List<Comment>) commentService.findCommentByHomeId(id);
         if (comments.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
@@ -91,12 +91,12 @@ public class ApiCommentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Comment> deleteComment(@PathVariable Long id) {
+    public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         Optional<Comment> comment = commentService.findById(id);
         if (comment.isPresent()) {
             commentService.remove(id);
-            return new ResponseEntity<>(comment.get(), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
