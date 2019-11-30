@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @CrossOrigin
@@ -44,20 +43,37 @@ public class ApiHomeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @PostMapping("/searchByAddress")
     public ResponseEntity<?> searchHomeByAddress(@RequestBody SearchByAddress searchByAddress) {
         List<Home> homes;
-        if (searchByAddress.getAddress() == "") {
-            homes = (List<Home>) homeService.findAll();
-            if (homes.isEmpty()) {
-                return new ResponseEntity<>(homes, HttpStatus.OK);
+//        if (searchByAddress.getAddress() == "") {
+//            homes = (List<Home>) homeService.findAll();
+//            if (homes.isEmpty()) {
+//                return new ResponseEntity<>(homes, HttpStatus.OK);
+//
+//            }
+//            return new ResponseEntity<>(homes, HttpStatus.OK);
+//
+//        }
 
-            }
+        return new ResponseEntity<>(homeService.findHomeByAddressContaining(searchByAddress.getAddress()), HttpStatus.OK);
+    }
+
+    @PostMapping("/searchAll/{bedroomQuantity}/{bathroomQuantity}/{address}/{priceMin}/{priceMax}")
+    public ResponseEntity<?> searchHomeByCategoryRoom(@PathVariable Integer bedroomQuantity,
+                                                      @PathVariable Integer bathroomQuantity,
+                                                      @PathVariable String address,
+                                                      @PathVariable Double priceMin,
+                                                      @PathVariable Double priceMax) {
+        System.out.println(bedroomQuantity + " " + bathroomQuantity + " " + address + " " + priceMin + " " + priceMax);
+        List<Home> homes;
+        if (address.equals("-1"))
+            homes = (List<Home>) homeService.filterAll(bedroomQuantity, bathroomQuantity, "", priceMin, priceMax);
+        else
+            homes = (List<Home>) homeService.filterAll(bedroomQuantity, bathroomQuantity, address.toUpperCase(), priceMin, priceMax);
+        if (homes.isEmpty()) {
             return new ResponseEntity<>(homes, HttpStatus.OK);
-
         }
-        homes = (List<Home>) homeService.findHomeByAddressContaining(searchByAddress.getAddress());
         return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 

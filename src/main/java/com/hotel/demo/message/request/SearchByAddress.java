@@ -2,6 +2,7 @@ package com.hotel.demo.message.request;
 
 public class SearchByAddress {
     private String address;
+
     public SearchByAddress() {
     }
 

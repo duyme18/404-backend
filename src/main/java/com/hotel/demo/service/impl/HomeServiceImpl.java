@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class HomeServiceImpl implements HomeService {
@@ -52,7 +54,37 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public  Iterable<Home> findHomeByAddressContaining(String address){
+    public Iterable<Home> findHomeByAddressContaining(String address) {
         return homeRepository.findHomeByAddressContaining(address);
+    }
+
+    @Override
+    public Iterable<Home> filterAll(Integer bedroomQuantity, Integer bathroomQuantity, String address, Double priceMin, Double priceMax) {
+
+        if (bathroomQuantity == -1 && bedroomQuantity == -1) {
+            return StreamSupport.stream(homeRepository.findAll().spliterator(), false)
+                    .filter(h -> h.getAddress().toUpperCase().indexOf(address) > -1
+                            && h.getPrice() >= priceMin && h.getPrice() <= priceMax).collect(Collectors.toList());
+
+        }
+        if (bathroomQuantity == -1) {
+            return StreamSupport.stream(homeRepository.findAll().spliterator(), false)
+                    .filter(h -> h.getAddress().toUpperCase().indexOf(address) > -1
+                            && h.getBedroomQuantity() == bedroomQuantity
+                            && h.getPrice() >= priceMin && h.getPrice() <= priceMax).collect(Collectors.toList());
+        }
+        if (bedroomQuantity == -1) {
+            return StreamSupport.stream(homeRepository.findAll().spliterator(), false)
+                    .filter(h -> h.getAddress().toUpperCase().indexOf(address) > -1
+                            && h.getBathroomQuantity() == bathroomQuantity
+                            && h.getPrice() >= priceMin && h.getPrice() <= priceMax).collect(Collectors.toList());
+
+        }
+        return StreamSupport.stream(homeRepository.findAll().spliterator(), false)
+                .filter(h -> h.getAddress().toUpperCase().indexOf(address) > -1
+                        && h.getBedroomQuantity() == bedroomQuantity
+                        && h.getBathroomQuantity() == bathroomQuantity
+                        && h.getPrice() >= priceMin && h.getPrice() <= priceMax).collect(Collectors.toList());
+
     }
 }
