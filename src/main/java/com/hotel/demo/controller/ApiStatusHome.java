@@ -23,7 +23,6 @@ public class ApiStatusHome {
         if (statuses.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(statuses, HttpStatus.OK);
     }
 

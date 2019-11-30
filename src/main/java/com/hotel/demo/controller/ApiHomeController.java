@@ -26,11 +26,9 @@ public class ApiHomeController {
     @GetMapping
     public ResponseEntity<List<Home>> findAllHome() {
         List<Home> homes = (List<Home>) homeService.findAll();
-
         if (homes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 
@@ -46,17 +44,8 @@ public class ApiHomeController {
     @PostMapping("/searchByAddress")
     public ResponseEntity<?> searchHomeByAddress(@RequestBody SearchByAddress searchByAddress) {
         List<Home> homes;
-//        if (searchByAddress.getAddress() == "") {
-//            homes = (List<Home>) homeService.findAll();
-//            if (homes.isEmpty()) {
-//                return new ResponseEntity<>(homes, HttpStatus.OK);
-//
-//            }
-//            return new ResponseEntity<>(homes, HttpStatus.OK);
-//
-//        }
-
-        return new ResponseEntity<>(homeService.findHomeByAddressContaining(searchByAddress.getAddress()), HttpStatus.OK);
+        homes = (List<Home>) homeService.findHomeByAddressContaining(searchByAddress.getAddress());
+        return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 
     @PostMapping("/searchAll/{bedroomQuantity}/{bathroomQuantity}/{address}/{priceMin}/{priceMax}")
@@ -79,7 +68,6 @@ public class ApiHomeController {
 
     @PostMapping
     public ResponseEntity<Home> createHome(@RequestBody Home home) {
-
         homeService.save(home);
         return new ResponseEntity<>(home, HttpStatus.CREATED);
     }

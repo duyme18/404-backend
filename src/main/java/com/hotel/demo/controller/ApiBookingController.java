@@ -58,11 +58,11 @@ public class ApiBookingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Booking> deleteBooking(@PathVariable Long id) {
+    public ResponseEntity<?> deleteBooking(@PathVariable Long id) {
         Optional<Booking> booking = bookingService.findById(id);
         if (booking.isPresent()) {
             bookingService.remove(id);
-            return new ResponseEntity<>(booking.get(), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

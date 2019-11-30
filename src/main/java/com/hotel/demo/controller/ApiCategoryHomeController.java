@@ -23,7 +23,6 @@ public class ApiCategoryHomeController {
         if (categoryHomes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(categoryHomes, HttpStatus.OK);
     }
 

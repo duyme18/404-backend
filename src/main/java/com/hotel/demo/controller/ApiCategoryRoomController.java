@@ -23,7 +23,6 @@ public class ApiCategoryRoomController {
         if (categoryRooms.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(categoryRooms, HttpStatus.OK);
     }
 
