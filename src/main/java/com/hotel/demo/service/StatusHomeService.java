@@ -13,4 +13,7 @@ public interface StatusHomeService {
     void remove(Long id);
 
     void save(StatusHome statusHome);
+
+    Iterable<StatusHome> findAllHomeById(Long id);
+
 }

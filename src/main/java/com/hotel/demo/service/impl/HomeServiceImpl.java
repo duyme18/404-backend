@@ -39,18 +39,18 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public Iterable<Home> findAllByCategoryHome(CategoryHome categoryHome) {
-        return homeRepository.findAllByCategoryHome(categoryHome);
+    public Iterable<Home> findAllByCategoryHomeId(Long categoryHomeId) {
+        return homeRepository.findAllByCategoryHomeId(categoryHomeId);
     }
 
     @Override
-    public Iterable<Home> findAllByCategoryRoom(CategoryRoom categoryRoom) {
-        return homeRepository.findAllByCategoryRoom(categoryRoom);
+    public Iterable<Home> findAllByCategoryRoomId(Long id) {
+        return homeRepository.findAllByCategoryRoomId(id);
     }
 
     @Override
-    public Iterable<Home> findAllByStatusHome(StatusHome statusHome) {
-        return homeRepository.findAllByStatusHome(statusHome);
+    public Iterable<Home> findAllByStatusHomeId(Long statusHomeId) {
+        return homeRepository.findAllByStatusHomeId(statusHomeId);
     }
 
     @Override

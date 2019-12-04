@@ -32,4 +32,9 @@ public class CategoryHomeServiceImpl implements CategoryHomeService {
     public void save(CategoryHome categoryHome) {
         categoryHomeRepository.save(categoryHome);
     }
+
+    @Override
+    public Iterable<CategoryHome> findAllHomeById(Long id) {
+        return categoryHomeRepository.findAllHomeById(id);
+    }
 }

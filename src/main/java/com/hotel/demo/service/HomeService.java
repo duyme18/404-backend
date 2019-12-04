@@ -16,11 +16,11 @@ public interface HomeService {
 
     void save(Home home);
 
-    Iterable<Home> findAllByCategoryHome(CategoryHome categoryHome);
+    Iterable<Home> findAllByCategoryHomeId(Long categoryHomeId);
 
-    Iterable<Home> findAllByCategoryRoom(CategoryRoom categoryRoom);
+    Iterable<Home> findAllByCategoryRoomId(Long categoryRoomId);
 
-    Iterable<Home> findAllByStatusHome(StatusHome statusHome);
+    Iterable<Home> findAllByStatusHomeId(Long statusHomeId);
 
     Iterable<Home> findHomeByAddressContaining(String address);
 

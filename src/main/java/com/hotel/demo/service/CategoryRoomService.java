@@ -12,4 +12,6 @@ public interface CategoryRoomService {
     void remove(Long id);
 
     void save(CategoryRoom categoryRoom);
+
+    Iterable<CategoryRoom> findAllHomeById(Long id);
 }

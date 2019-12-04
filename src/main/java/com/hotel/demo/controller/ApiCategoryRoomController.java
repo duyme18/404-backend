@@ -1,7 +1,9 @@
 package com.hotel.demo.controller;
 
 import com.hotel.demo.model.CategoryRoom;
+import com.hotel.demo.model.Home;
 import com.hotel.demo.service.CategoryRoomService;
+import com.hotel.demo.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class ApiCategoryRoomController {
     @Autowired
     private CategoryRoomService categoryRoomService;
+
+    @Autowired
+    private HomeService homeService;
 
     @GetMapping
     public ResponseEntity<List<CategoryRoom>> findAllCategoryRoom() {
@@ -62,5 +67,14 @@ public class ApiCategoryRoomController {
             return new ResponseEntity<>(categoryHome.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/home/{id}")
+    public ResponseEntity<?> findAllHomeById(@PathVariable Long id) {
+        List<Home> homes = (List<Home>) homeService.findAllByCategoryRoomId(id);
+        if (homes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 }

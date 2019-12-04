@@ -1,6 +1,8 @@
 package com.hotel.demo.controller;
 
+import com.hotel.demo.model.Home;
 import com.hotel.demo.model.StatusHome;
+import com.hotel.demo.service.HomeService;
 import com.hotel.demo.service.StatusHomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ import java.util.Optional;
 public class ApiStatusHome {
     @Autowired
     private StatusHomeService statusHomeService;
+
+    @Autowired
+    private HomeService homeService;
 
     @GetMapping
     public ResponseEntity<List<StatusHome>> findAllStatusHome() {
@@ -62,5 +67,14 @@ public class ApiStatusHome {
             return new ResponseEntity<>(statusHome.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/home/{id}")
+    public ResponseEntity<?> findAllHomeById(@PathVariable Long id) {
+        List<Home> homes = (List<Home>) homeService.findAllByStatusHomeId(id);
+        if (homes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 }

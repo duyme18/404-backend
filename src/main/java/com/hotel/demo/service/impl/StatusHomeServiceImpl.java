@@ -32,4 +32,9 @@ public class StatusHomeServiceImpl implements StatusHomeService {
     public void save(StatusHome statusHome) {
         statusHomeRepository.save(statusHome);
     }
+
+    @Override
+    public Iterable<StatusHome> findAllHomeById(Long id) {
+        return statusHomeRepository.findAllHomeById(id);
+    }
 }

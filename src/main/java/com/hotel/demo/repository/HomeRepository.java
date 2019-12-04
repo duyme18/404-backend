@@ -1,19 +1,16 @@
 package com.hotel.demo.repository;
 
-import com.hotel.demo.model.CategoryHome;
-import com.hotel.demo.model.CategoryRoom;
 import com.hotel.demo.model.Home;
-import com.hotel.demo.model.StatusHome;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HomeRepository extends PagingAndSortingRepository<Home, Long> {
-    Iterable<Home> findAllByCategoryHome(CategoryHome categoryHome);
+    Iterable<Home> findAllByCategoryHomeId(Long id);
 
-    Iterable<Home> findAllByCategoryRoom(CategoryRoom categoryRoom);
+    Iterable<Home> findAllByCategoryRoomId(Long id);
 
-    Iterable<Home> findAllByStatusHome(StatusHome statusHome);
+    Iterable<Home> findAllByStatusHomeId(Long id);
 
     Iterable<Home> findHomeByAddressContaining(String address);
 }

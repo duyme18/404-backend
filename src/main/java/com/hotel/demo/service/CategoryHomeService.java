@@ -12,4 +12,6 @@ public interface CategoryHomeService {
     void remove(Long id);
 
     void save(CategoryHome categoryHome);
+
+    Iterable<CategoryHome> findAllHomeById(Long id);
 }
