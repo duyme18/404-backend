@@ -3,17 +3,21 @@ package com.hotel.demo.controller;
 import com.hotel.demo.message.request.SearchByAddress;
 import com.hotel.demo.model.Comment;
 import com.hotel.demo.model.Home;
+import com.hotel.demo.model.ImageHome;
 import com.hotel.demo.service.CommentService;
 import com.hotel.demo.service.HomeService;
+import com.hotel.demo.service.ImageHomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth/home")
 public class ApiHomeController {
@@ -22,6 +26,9 @@ public class ApiHomeController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private ImageHomeService imageHomeService;
 
     @GetMapping
     public ResponseEntity<List<Home>> findAllHome() {
@@ -48,12 +55,12 @@ public class ApiHomeController {
         return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 
-    @PostMapping("/searchAll/{bedroomQuantity}/{bathroomQuantity}/{address}/{priceMin}/{priceMax}")
-    public ResponseEntity<?> searchHomeByCategoryRoom(@PathVariable Integer bedroomQuantity,
-                                                      @PathVariable Integer bathroomQuantity,
-                                                      @PathVariable String address,
-                                                      @PathVariable Double priceMin,
-                                                      @PathVariable Double priceMax) {
+    @GetMapping("/searchAll/{bedroomQuantity}/{bathroomQuantity}/{address}/{priceMin}/{priceMax}")
+    public ResponseEntity<?> searchAll(@PathVariable Integer bedroomQuantity,
+                                       @PathVariable Integer bathroomQuantity,
+                                       @PathVariable String address,
+                                       @PathVariable Double priceMin,
+                                       @PathVariable Double priceMax) {
         System.out.println(bedroomQuantity + " " + bathroomQuantity + " " + address + " " + priceMin + " " + priceMax);
         List<Home> homes;
         if (address.equals("-1"))
@@ -99,10 +106,18 @@ public class ApiHomeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteHome(@PathVariable Long id) {
         List<Comment> comments = (List<Comment>) commentService.findCommentByHomeId(id);
+        List<ImageHome> imageHomes = (List<ImageHome>) imageHomeService.findAllByHome_Id(id);
         Optional<Home> home = homeService.findById(id);
         if (!comments.isEmpty() && home.isPresent()) {
             for (Comment comment : comments) {
                 commentService.remove(comment.getId());
+            }
+            homeService.remove(id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!imageHomes.isEmpty() && home.isPresent()) {
+            for (ImageHome imageHome : imageHomes) {
+                imageHomeService.remove(imageHome.getId());
             }
             homeService.remove(id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

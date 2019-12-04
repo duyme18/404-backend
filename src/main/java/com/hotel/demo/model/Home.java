@@ -1,7 +1,9 @@
 package com.hotel.demo.model;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "home")
@@ -16,6 +18,7 @@ public class Home {
     private Double price;
     @Column(columnDefinition = "LONGTEXT")
     private String file;
+    @Lob
     private String description;
     private String latitude;
     private String longitude;
@@ -34,6 +37,16 @@ public class Home {
     private Booking booking;
     @OneToMany(targetEntity = Comment.class)
     private List<Comment> comments;
+    @OneToMany(targetEntity = ImageHome.class)
+    private Set<ImageHome> imageHomes;
+
+    public Set<ImageHome> getImageHomes() {
+        return imageHomes;
+    }
+
+    public void setImageHomes(Set<ImageHome> imageHomes) {
+        this.imageHomes = imageHomes;
+    }
 
     public List<Comment> getComments() {
         return comments;
