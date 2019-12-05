@@ -33,9 +33,9 @@ public class ApiCategoryRoomController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryRoom> getIdCategoryRoom(@PathVariable Long id) {
-        Optional<CategoryRoom> categoryHome = categoryRoomService.findById(id);
-        if (categoryHome.isPresent()) {
-            return new ResponseEntity<>(categoryHome.get(), HttpStatus.OK);
+        Optional<CategoryRoom> categoryRoom = categoryRoomService.findById(id);
+        if (categoryRoom.isPresent()) {
+            return new ResponseEntity<>(categoryRoom.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
