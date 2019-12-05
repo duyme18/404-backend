@@ -49,6 +49,12 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
+    public Iterable<Home> findAllByBooking_Id(Long id) {
+        return homeRepository.findHomeByBooking_Id(id);
+    }
+
+
+    @Override
     public Iterable<Home> findAllByStatusHomeId(Long statusHomeId) {
         return homeRepository.findAllByStatusHomeId(statusHomeId);
     }

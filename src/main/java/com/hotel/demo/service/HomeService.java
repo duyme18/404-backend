@@ -20,6 +20,8 @@ public interface HomeService {
 
     Iterable<Home> findAllByCategoryRoomId(Long categoryRoomId);
 
+    Iterable<Home> findAllByBooking_Id(Long id);
+
     Iterable<Home> findAllByStatusHomeId(Long statusHomeId);
 
     Iterable<Home> findHomeByAddressContaining(String address);

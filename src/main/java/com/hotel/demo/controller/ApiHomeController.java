@@ -98,9 +98,19 @@ public class ApiHomeController {
         currentHome.get().setAddress(home.getAddress());
         currentHome.get().setName(home.getName());
         currentHome.get().setId(home.getId());
+        currentHome.get().setBooking(home.getBooking());
 
         homeService.save(currentHome.get());
         return new ResponseEntity<>(currentHome.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/booking/{id}")
+    public ResponseEntity<?> findHomeByBookingId(@PathVariable Long id){
+        List<Home> homes = (List<Home>) homeService.findAllByBooking_Id(id);
+        if (homes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

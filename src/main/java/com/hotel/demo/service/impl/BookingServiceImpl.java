@@ -43,4 +43,5 @@ public class BookingServiceImpl implements BookingService {
     public Iterable<Booking> findBookingsById(Long id) {
         return bookingRepository.findBookingsById(id);
     }
+
 }

@@ -13,4 +13,6 @@ public interface HomeRepository extends PagingAndSortingRepository<Home, Long> {
     Iterable<Home> findAllByStatusHomeId(Long id);
 
     Iterable<Home> findHomeByAddressContaining(String address);
+
+    Iterable<Home> findHomeByBooking_Id(Long id);
 }

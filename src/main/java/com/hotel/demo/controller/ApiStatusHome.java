@@ -77,4 +77,5 @@ public class ApiStatusHome {
         }
         return new ResponseEntity<>(homes, HttpStatus.OK);
     }
+
 }
