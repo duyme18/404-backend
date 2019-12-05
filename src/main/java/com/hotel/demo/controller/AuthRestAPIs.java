@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -47,6 +48,15 @@ public class AuthRestAPIs {
     @Autowired
     JwtProvider jwtProvider;
 
+    @GetMapping("/user")
+    public ResponseEntity<?> getListAllUser() {
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
@@ -58,7 +68,7 @@ public class AuthRestAPIs {
         String jwt = jwtProvider.generateJwtToken(authentication);
         UserPrinciple userDetails = (UserPrinciple) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(),userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
     @PostMapping("/signup")
@@ -106,16 +116,16 @@ public class AuthRestAPIs {
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
     }
+
     @PostMapping("/update-password/{id}")
     public ResponseEntity<?> updatePassword(@PathVariable("id") Long id,
-                                            @Valid @RequestBody PasswordForm passwordForm)
-    {
+                                            @Valid @RequestBody PasswordForm passwordForm) {
         Optional<User> user = userRepository.findById(id);
         System.out.println(user);
-        if(!user.isPresent()){
+        if (!user.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        try{
+        try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             passwordForm.getUsername(),
@@ -123,8 +133,8 @@ public class AuthRestAPIs {
             );
             user.get().setPassword(passwordEncoder.encode(passwordForm.getNewPassword()));
             userRepository.save(user.get());
-            return new ResponseEntity<>(new ResponseMessage("Change password succesfully"),HttpStatus.OK);
-        }catch (Exception e) {
+            return new ResponseEntity<>(new ResponseMessage("Change password succesfully"), HttpStatus.OK);
+        } catch (Exception e) {
             throw new RuntimeException("Fail");
         }
     }
