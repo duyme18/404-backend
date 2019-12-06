@@ -36,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Iterable<Booking> findBookingsByUserId(Long user_id) {
-        return bookingRepository.findBookingsByUserId(user_id);
+        return bookingRepository.findBookingsByUser_Id(user_id);
     }
 
     @Override
