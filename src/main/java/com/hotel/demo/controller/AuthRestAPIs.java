@@ -2,6 +2,7 @@ package com.hotel.demo.controller;
 
 import com.hotel.demo.message.request.LoginForm;
 import com.hotel.demo.message.request.PasswordForm;
+import com.hotel.demo.message.request.SearchUserByName;
 import com.hotel.demo.message.request.SignUpForm;
 import com.hotel.demo.message.response.JwtResponse;
 import com.hotel.demo.message.response.ResponseMessage;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +57,24 @@ public class AuthRestAPIs {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PostMapping("/user/search-by-name")
+    public ResponseEntity<?> getListUserByName(@RequestBody SearchUserByName searchUserByName) {
+        if (searchUserByName.getName() == "" || searchUserByName.getName() == null) {
+            List<User> users = userRepository.findAll();
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(users, HttpStatus.OK);
+            }
+        }
+        List<User> users = (List<User>) userRepository.findUsersByNameContaining(searchUserByName.getName());
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/signin")

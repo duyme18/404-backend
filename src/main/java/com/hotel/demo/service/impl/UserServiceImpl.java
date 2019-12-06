@@ -14,4 +14,9 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Override
+    public Iterable<User> findUsersByNameContaining(String user_name) {
+        return userRepository.findUsersByNameContaining(user_name);
+    }
 }
