@@ -1,5 +1,6 @@
 package com.hotel.demo.service;
 
+import com.hotel.demo.model.CategoryHome;
 import com.hotel.demo.model.CategoryRoom;
 
 import java.util.Optional;
@@ -14,4 +15,7 @@ public interface CategoryRoomService {
     void save(CategoryRoom categoryRoom);
 
     Iterable<CategoryRoom> findAllHomeById(Long id);
+
+    Iterable<CategoryRoom> findAllByNameContaining(String categoryRoom_name);
+
 }

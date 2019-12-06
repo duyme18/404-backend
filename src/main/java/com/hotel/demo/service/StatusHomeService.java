@@ -1,5 +1,6 @@
 package com.hotel.demo.service;
 
+import com.hotel.demo.model.CategoryHome;
 import com.hotel.demo.model.StatusHome;
 
 import java.util.Optional;

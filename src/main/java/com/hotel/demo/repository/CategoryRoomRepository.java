@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRoomRepository extends PagingAndSortingRepository<CategoryRoom, Long> {
     Iterable<CategoryRoom> findAllHomeById(Long id);
+
+    Iterable<CategoryRoom> findAllByNameContaining(String categoryRoom_name);
 }

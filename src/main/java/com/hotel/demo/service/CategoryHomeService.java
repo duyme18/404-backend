@@ -14,4 +14,7 @@ public interface CategoryHomeService {
     void save(CategoryHome categoryHome);
 
     Iterable<CategoryHome> findAllHomeById(Long id);
+
+    Iterable<CategoryHome> findAllByNameContaining(String categoryHome_name);
+
 }

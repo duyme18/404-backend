@@ -37,4 +37,9 @@ public class CategoryHomeServiceImpl implements CategoryHomeService {
     public Iterable<CategoryHome> findAllHomeById(Long id) {
         return categoryHomeRepository.findAllHomeById(id);
     }
+
+    @Override
+    public Iterable<CategoryHome> findAllByNameContaining(String categoryHome_name) {
+        return categoryHomeRepository.findAllByNameContaining(categoryHome_name);
+    }
 }

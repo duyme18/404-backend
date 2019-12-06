@@ -1,5 +1,6 @@
 package com.hotel.demo.controller;
 
+import com.hotel.demo.message.request.SearchCategoryHomeByName;
 import com.hotel.demo.model.CategoryHome;
 import com.hotel.demo.model.Home;
 import com.hotel.demo.service.CategoryHomeService;
@@ -76,5 +77,12 @@ public class ApiCategoryHomeController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(homes, HttpStatus.OK);
+    }
+
+    @PostMapping("/search-by-name")
+    public ResponseEntity<?> getAllCategoryHomeByName(@RequestBody SearchCategoryHomeByName categoryHome_name){
+        List<CategoryHome> categoryHomes;
+        categoryHomes = (List<CategoryHome>) categoryHomeService.findAllByNameContaining(categoryHome_name.getName());
+        return new ResponseEntity<>(categoryHomes, HttpStatus.OK);
     }
 }
