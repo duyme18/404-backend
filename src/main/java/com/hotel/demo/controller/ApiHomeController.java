@@ -55,6 +55,15 @@ public class ApiHomeController {
         return new ResponseEntity<>(homes, HttpStatus.OK);
     }
 
+    @GetMapping("/search-by-category-home-id")
+    public ResponseEntity<?> searchHomeByCategoryHomeId(@RequestBody Long id) {
+        List<Home> homes = (List<Home>) homeService.findHomesByCategoryHomeId(id);
+        if (homes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(homes, HttpStatus.OK);
+    }
+
     @GetMapping("/searchAll/{bedroomQuantity}/{bathroomQuantity}/{address}/{priceMin}/{priceMax}")
     public ResponseEntity<?> searchAll(@PathVariable Integer bedroomQuantity,
                                        @PathVariable Integer bathroomQuantity,
@@ -105,7 +114,7 @@ public class ApiHomeController {
     }
 
     @GetMapping("/booking/{id}")
-    public ResponseEntity<?> findHomeByBookingId(@PathVariable Long id){
+    public ResponseEntity<?> findHomeByBookingId(@PathVariable Long id) {
         List<Home> homes = (List<Home>) homeService.findAllByBooking_Id(id);
         if (homes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

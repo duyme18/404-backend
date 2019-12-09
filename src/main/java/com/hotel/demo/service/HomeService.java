@@ -27,4 +27,8 @@ public interface HomeService {
     Iterable<Home> findHomeByAddressContaining(String address);
 
     Iterable<Home> filterAll(Integer bedroomQuantity, Integer bathroomQuantity, String address, Double priceMin, Double priceMax);
+
+    Iterable<Home> findHomesByCategoryHomeId(Long categoryHome_id);
+
+    Iterable<Home> findHomesByCategoryRoomId(Long categoryRoom_id);
 }

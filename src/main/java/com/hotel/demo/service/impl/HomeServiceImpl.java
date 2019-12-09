@@ -93,4 +93,14 @@ public class HomeServiceImpl implements HomeService {
                         && h.getPrice() >= priceMin && h.getPrice() <= priceMax).collect(Collectors.toList());
 
     }
+
+    @Override
+    public Iterable<Home> findHomesByCategoryHomeId(Long categoryHome_id) {
+        return homeRepository.findHomesByCategoryHomeId(categoryHome_id);
+    }
+
+    @Override
+    public Iterable<Home> findHomesByCategoryRoomId(Long categoryRoom_id) {
+        return homeRepository.findHomesByCategoryRoomId(categoryRoom_id);
+    }
 }
