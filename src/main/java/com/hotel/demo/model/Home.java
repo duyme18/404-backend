@@ -20,8 +20,8 @@ public class Home {
     private String file;
     @Lob
     private String description;
-//    private String latitude;
-//    private String longitude;
+    private String latitude;
+    private String longitude;
 
     @ManyToOne
     @JoinColumn(name = "category_home_id")
@@ -56,7 +56,7 @@ public class Home {
         this.comments = comments;
     }
 
-    public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String file, String description) {
+    public Home(String name, String address, int bedroomQuantity, int bathroomQuantity, Double price, String file, String description, String latitude, String longitude) {
         this.name = name;
         this.address = address;
         this.bedroomQuantity = bedroomQuantity;
@@ -64,8 +64,8 @@ public class Home {
         this.price = price;
         this.file = file;
         this.description = description;
-//        this.latitude = latitude;
-//        this.longitude = longitude;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Long getId() {
@@ -132,21 +132,21 @@ public class Home {
         this.description = description;
     }
 
-//    public String getLatitude() {
-//        return latitude;
-//    }
-//
-//    public void setLatitude(String latitude) {
-//        this.latitude = latitude;
-//    }
-//
-//    public String getLongitude() {
-//        return longitude;
-//    }
-//
-//    public void setLongitude(String longitude) {
-//        this.longitude = longitude;
-//    }
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 
     public CategoryHome getCategoryHome() {
         return categoryHome;
