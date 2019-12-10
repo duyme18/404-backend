@@ -97,8 +97,8 @@ public class ApiHomeController {
         currentHome.get().setCategoryRoom(home.getCategoryRoom());
         currentHome.get().setCategoryHome(home.getCategoryHome());
         currentHome.get().setStatusHome(home.getStatusHome());
-        currentHome.get().setLatitude(home.getLatitude());
-        currentHome.get().setLongitude(home.getLongitude());
+//        currentHome.get().setLatitude(home.getLatitude());
+//        currentHome.get().setLongitude(home.getLongitude());
         currentHome.get().setDescription(home.getDescription());
         currentHome.get().setPrice(home.getPrice());
         currentHome.get().setFile(home.getFile());
