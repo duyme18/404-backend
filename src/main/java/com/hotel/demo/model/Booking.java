@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,9 +13,9 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
-    private String checkin;
+    private Date checkin;
     @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
-    private String checkout;
+    private Date checkout;
 
     @OneToMany(targetEntity = Home.class)
     private List<Home> homes;
@@ -33,14 +34,14 @@ public class Booking {
         this.user = user;
     }
 
-    public Booking(String checkin, String checkout, List<Home> homes, User user) {
+    public Booking(Date checkin, Date checkout, List<Home> homes, User user) {
         this.checkin = checkin;
         this.checkout = checkout;
         this.homes = homes;
         this.user = user;
     }
 
-    public Booking(String checkin, String checkout) {
+    public Booking(Date checkin, Date checkout) {
         this.checkin = checkin;
         this.checkout = checkout;
     }
@@ -53,19 +54,19 @@ public class Booking {
         this.id = id;
     }
 
-    public String getCheckin() {
+    public Date getCheckin() {
         return checkin;
     }
 
-    public void setCheckin(String checkin) {
+    public void setCheckin(Date checkin) {
         this.checkin = checkin;
     }
 
-    public String getCheckout() {
+    public Date getCheckout() {
         return checkout;
     }
 
-    public void setCheckout(String checkout) {
+    public void setCheckout(Date checkout) {
         this.checkout = checkout;
     }
 
