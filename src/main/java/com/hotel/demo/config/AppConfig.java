@@ -1,31 +1,22 @@
 package com.hotel.demo.config;
 
 
-import com.hotel.demo.security.service.UserDetailsServiceImpl;
-import com.hotel.demo.security.service.UserPrinciple;
-import com.hotel.demo.service.*;
-import com.hotel.demo.service.impl.*;
-import org.springframework.context.annotation.Bean;
+import com.hotel.demo.formatter.LocalDateFormatter;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableWebMvc
 
-public class AppConfig implements WebMvcConfigurer {
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler("/assets/**")
-                .addResourceLocations("/assets/");
+public class AppConfig extends WebMvcConfigurerAdapter {
 
-        registry
-                .addResourceHandler("/uploads/**")
-                .addResourceLocations("file:/home/duyhd/Documents/project/project-404/photo/");
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new LocalDateFormatter());
     }
+
 
 //    @Bean
 //    public HomeService homeService() {

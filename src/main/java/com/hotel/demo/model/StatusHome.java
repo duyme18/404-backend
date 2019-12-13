@@ -13,6 +13,7 @@ public class StatusHome {
     private Long id;
 
     private String name;
+
     @JsonIgnore
     @OneToMany(targetEntity = Home.class)
     private List<Home> homes;
